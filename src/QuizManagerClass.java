@@ -23,7 +23,7 @@ public class QuizManagerClass {
                 String[] parts=line.split(",");
                 if (parts.length<6) continue;
                 
-                String q=paarts[0];
+                String q=parts[0];
                 String[] opts={parts[1], parts[2], parts[3], parts[4]};
                 int correct=Integer.parseInt(parts[5].trim());
                 
