@@ -27,7 +27,7 @@ public class QuizFrame extends javax.swing.JFrame {
             return;
         }
         
-        current = QuizManagerClass.question[index];
+        current = QuizManagerClass.questions[index];
         
         questionLabel.setText(current.getQuestionText());
         String[] opts = current.getOptions();
