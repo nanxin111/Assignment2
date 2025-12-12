@@ -9,13 +9,42 @@
  */
 public class QuizFrame extends javax.swing.JFrame {
 
+    private int index = 0;
+    private QuestionBase current;
     /**
      * Creates new form QuizFrame
      */
     public QuizFrame() {
         initComponents();
+        QuizManagerClass.loadQuestions();
+        loadNext();
     }
-
+    
+    public void loadNext() {
+        if (index >= QuizManagerClass.questionCount) {
+            new ResultFrame().setVisible(true);
+            this.dispose();
+            return;
+        }
+        
+        current = QuizManagerClass.question[index];
+        
+        questionLabel.setText(current.getQuestionText());
+        String[] opts = current.getOptions();
+        
+        answer1.setText(opts[0]);
+        answer2.setText(opts[1]);
+        answer3.setText(opts[2]);
+        answer4.setText(opts[3]);
+    }
+    
+    private void check(int choice) {
+        if (current.checkAnswer(choice)) {
+            QuizManagerClass.score++;
+        }
+        index++;
+        loadNext();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,10 +113,10 @@ public class QuizFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(answer2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(answer3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(answer4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(answer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(answer2, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(answer3, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(answer4, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(answer1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(questionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
@@ -98,6 +127,9 @@ public class QuizFrame extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(94, 94, 94))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {answer1, answer2, answer3, answer4});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -109,14 +141,16 @@ public class QuizFrame extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(answer1)
-                .addGap(43, 43, 43)
+                .addGap(32, 32, 32)
                 .addComponent(answer2)
-                .addGap(42, 42, 42)
+                .addGap(30, 30, 30)
                 .addComponent(answer3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(answer4)
                 .addGap(25, 25, 25))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {answer1, answer2, answer3, answer4});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
