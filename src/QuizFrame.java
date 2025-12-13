@@ -117,6 +117,7 @@ public class QuizFrame extends javax.swing.JFrame {
         });
 
         questionLabel.setColumns(20);
+        questionLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         questionLabel.setRows(5);
         jScrollPane1.setViewportView(questionLabel);
 
