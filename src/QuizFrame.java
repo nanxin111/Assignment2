@@ -16,7 +16,6 @@ public class QuizFrame extends javax.swing.JFrame {
      */
     public QuizFrame() {
         initComponents();
-        QuizManagerClass.loadQuestions();
         loadNext();
     }
     
@@ -36,6 +35,8 @@ public class QuizFrame extends javax.swing.JFrame {
         answer2.setText(opts[1]);
         answer3.setText(opts[2]);
         answer4.setText(opts[3]);
+        
+        buttonGroup1.clearSelection();
     }
     
     private void check(int choice) {
@@ -54,6 +55,7 @@ public class QuizFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         answer2 = new javax.swing.JRadioButton();
         answer3 = new javax.swing.JRadioButton();
         answer4 = new javax.swing.JRadioButton();
@@ -64,6 +66,7 @@ public class QuizFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        buttonGroup1.add(answer2);
         answer2.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         answer2.setText("B");
         answer2.addActionListener(new java.awt.event.ActionListener() {
@@ -72,6 +75,7 @@ public class QuizFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(answer3);
         answer3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         answer3.setText("C");
         answer3.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +84,7 @@ public class QuizFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(answer4);
         answer4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         answer4.setText("D");
         answer4.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +103,7 @@ public class QuizFrame extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 153, 255));
         jLabel1.setText("Ethical Dilemma Quiz App - Quiz");
 
+        buttonGroup1.add(answer1);
         answer1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         answer1.setText("A");
         answer1.addActionListener(new java.awt.event.ActionListener() {
@@ -211,6 +217,7 @@ public class QuizFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton answer2;
     private javax.swing.JRadioButton answer3;
     private javax.swing.JRadioButton answer4;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel questionLabel;
