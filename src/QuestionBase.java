@@ -27,10 +27,14 @@ public class QuestionBase {
     }
     
     public String[] getOptions() {
-        return choice==correctIndex;
+        return options;
     }
     
     public String getType() {
         return "Base Question";
+    }
+    
+    public boolean checkAnswer(int choice) {
+        return choice==correctIndex;
     }
 }

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Scanner;
 /**
  *
  * @author nanxinyu
@@ -15,27 +15,36 @@ public class QuizManagerClass {
     
     public static void loadQuestions() {
         try {
-            BufferedReader br=new BufferedReader(new FileReader("question.txt"));
-            ArrayList<QuestionBase>list=new ArrayList<>();
-            
-            String line;
-            while ((line=br.readLine())!=null) {
-                String[] parts=line.split(",");
-                if (parts.length<6) continue;
-                
-                String q=parts[0];
-                String[] opts={parts[1], parts[2], parts[3], parts[4]};
-                int correct=Integer.parseInt(parts[5].trim());
-                
-                list.add(new QuestionClass(q, opts, correct));
+            // Count the number of non-empty lines in the file
+            int totalLines = 0;
+            Scanner sc = new Scanner(new File("questions.txt"));
+            while (sc.hasNextLine()) {
+                if (!sc.nextLine().trim().isEmpty()) {
+                    totalLines++;
+                }
             }
-            br.close();
+            sc.close();
+            // Each question consists of 6 lines
+            questionCount = totalLines/6;
+            questions = new QuestionBase[questionCount];
             
-            questions=new QuestionBase[list.size()];
-            questions=list.toArray(questions);
-            questionCount=questions.length;
-            
-        } catch (Exception e) {
+            // Read and store questions, options, and answers
+            sc = new Scanner(new File("questions.txt"));
+            for (int i=0; i<questionCount; i++) {
+                String text= sc.nextLine().trim();  // Question text
+                
+                String [] opts=new String[4];
+                for (int j=0; j<4; j++) {
+                    opts[j] = sc.nextLine().trim();  // Option A-D
+                }
+                
+                String ans= sc.nextLine().trim().toUpperCase();  // Correct answer
+                int correctIndex=ans.charAt(0)-'A';
+                
+                questions[i]=new QuestionClass(text, opts, correctIndex);
+            }
+            sc.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
