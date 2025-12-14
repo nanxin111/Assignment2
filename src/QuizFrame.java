@@ -4,47 +4,69 @@
  */
 
 /**
- *
+ * QuizFrame represent the main quiz window.
+ * It displays questions one by one, and records the user answers,
+ * and moves to the result screen when the quiz is finished.
  * @author forever
  */
 public class QuizFrame extends javax.swing.JFrame {
-
+    //Variable
     private int index = 0;
     private QuestionBase current;
     /**
      * Creates new form QuizFrame
+     * Initializes and loads the first questiom.
      */
     public QuizFrame() {
-        initComponents();
-        loadNext();
+        initComponents(); //Initialze
+        loadNext(); //Load the first question
     }
     
+    /**
+     * Loads the next question to the frame.
+     * If all questions have been answered, it opens the ResultFrame.
+     */
     public void loadNext() {
+        //Check if all questions have been answered
         if (index >= QuizManagerClass.questionCount) {
-            new ResultFrame().setVisible(true);
-            this.dispose();
+            new ResultFrame().setVisible(true); //Show results screen
+            this.dispose(); //Close current quiz window
             return;
         }
         
+        //Get the current question base on index
         current = QuizManagerClass.questions[index];
         
+        //Display the question text
         questionLabel.setText(current.getQuestionText());
+        //Get answer options for the question
         String[] opts = current.getOptions();
         
+        //Set text for each answer button
         answer1.setText(opts[0]);
         answer2.setText(opts[1]);
         answer3.setText(opts[2]);
         answer4.setText(opts[3]);
         
+        //Clear previously answer that been select
         buttonGroup1.clearSelection();
     }
     
+    /**
+     * Checks the user's selected answer.
+     * 
+     * @param choice the index of the selected answer
+     */
     private void check(int choice) {
+        //Check whether the selected answer
         boolean correct = current.checkAnswer(choice);
+        //Store whethter the answer was correct
         QuizManagerClass.isCorrect[index] = correct;
+        //Increase score if the answer is correct
         if (correct) {
             QuizManagerClass.score++;
         }
+        //Move to the next question
         index++;
         loadNext();
     }
