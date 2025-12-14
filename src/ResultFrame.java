@@ -14,24 +14,32 @@ public class ResultFrame extends javax.swing.JFrame {
      */
     public ResultFrame() {
         initComponents();
+        // Get score and total number of questions from QuizManagerClass
         int score = QuizManagerClass.score;
         int total = QuizManagerClass.questionCount;
+        //Display score on the screen
         resultLabel.setText("Your score: " + score + " / " + total);
         
+        //Generate feedback based on percentage
         String feedback;
+        // Calculate percentage score
         double percent = (double) score / total * 100;
         if (percent == 100) feedback = "Perfect! Excellent job!";
         else if (percent >= 70) feedback = "Good job, but there's room for improvement.";
         else if (percent >= 50) feedback = "You passed, but review the mistakes.";
         else feedback = "Needs improvement. Keep studying!";
+        //Display feedback text
         feedbacks.setText(feedback);
         
+        //Build a list of incorrectly answered questions
         String wrongQuestions = "Wrong quesrions:\n";
         for (int i = 0; i < total; i++) {
+            //Check if the question was answered incorrectly
             if (!QuizManagerClass.isCorrect[i]) {
                 wrongQuestions += QuizManagerClass.questions[i].getQuestionText() + "\n";
             }
         }
+        //Display incorrect questions in the text area
         wrongTextArea.setText(wrongQuestions);
         QuizManagerClass.saveScore(); //fill the output
     }
@@ -136,8 +144,8 @@ public class ResultFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new HomeFrame().setVisible(true);
-        this.dispose();
+        new HomeFrame().setVisible(true); // Go back to the home screen
+        this.dispose(); // Close the current window
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
