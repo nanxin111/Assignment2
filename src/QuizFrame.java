@@ -40,7 +40,9 @@ public class QuizFrame extends javax.swing.JFrame {
     }
     
     private void check(int choice) {
-        if (current.checkAnswer(choice)) {
+        boolean correct = current.checkAnswer(choice);
+        QuizManagerClass.isCorrect[index] = correct;
+        if (correct) {
             QuizManagerClass.score++;
         }
         index++;
