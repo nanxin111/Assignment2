@@ -18,10 +18,6 @@ public class QuestionBase {
         this.correctIndex=correctIndex;
     }
     
-    public QuestionBase(String questionText) {
-        this(questionText, new String[]{"A","B","C","D"}, 0);
-    }
-    
     public String getQuestionText() {
         return questionText;
     }

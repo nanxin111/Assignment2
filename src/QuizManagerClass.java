@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class QuizManagerClass {
     public static QuestionBase[] questions;
+    public static boolean[] isCorrect;
     public static int questionCount=0;
     public static int score=0;
     
@@ -27,6 +28,7 @@ public class QuizManagerClass {
             // Each question consists of 6 lines
             questionCount = totalLines/6;
             questions = new QuestionBase[questionCount];
+            isCorrect = new boolean[questionCount];
             
             // Read and store questions, options, and answers
             sc = new Scanner(new File("questions.txt"));
@@ -54,6 +56,12 @@ public class QuizManagerClass {
             BufferedWriter bw = new BufferedWriter(new FileWriter("result.txt", true));
             bw.write("Score: "+score+"/"+questionCount);
             bw.newLine();
+            for (int i = 0; i < questionCount; i++) {
+                if (!isCorrect[i]) {
+                    bw.write("Question " + (i + 1) + " incorrect: " + questions[i].getQuestionText());
+                    bw.newLine();
+                }
+            }
             bw.close();
         } catch (Exception e) {
             e.printStackTrace();
