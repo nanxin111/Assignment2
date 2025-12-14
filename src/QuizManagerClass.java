@@ -9,10 +9,10 @@ import java.util.Scanner;
  * @author nanxinyu
  */
 public class QuizManagerClass {
-    public static QuestionBase[] questions;
-    public static boolean[] isCorrect;
-    public static int questionCount=0;
-    public static int score=0;
+    public static QuestionBase[] questions; //Array storing all quiz questions
+    public static boolean[] isCorrect; //Boolean array indicating whether each question was answered correctly
+    public static int questionCount=0; //Total number of questions in the quiz
+    public static int score=0; //Player's current score
     
     public static void loadQuestions() {
         try {
@@ -40,9 +40,9 @@ public class QuizManagerClass {
                     opts[j] = sc.nextLine().trim();  // Option A-D
                 }
                 
-                String ans= sc.nextLine().trim().toUpperCase();  // Correct answer
-                int correctIndex=ans.charAt(0)-'A';
-                
+                String ans= sc.nextLine().trim().toUpperCase();  // Correct answer letter
+                int correctIndex=ans.charAt(0)-'A'; // Convert letter to index (A=0, B=1, ...)
+                // Create a QuestionClass object and store it
                 questions[i]=new QuestionClass(text, opts, correctIndex);
             }
             sc.close();
@@ -51,11 +51,17 @@ public class QuizManagerClass {
         }
     }
     
+    /**
+     * Save the player's score to a file ("result.txt").
+     * Includes total score and a list of incorrectly answered questions.
+     * Appends to the file if it already exists.
+     */
     public static void saveScore() {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("result.txt", true));
-            bw.write("Score: "+score+"/"+questionCount);
+            bw.write("Score: "+score+"/"+questionCount); // Write total score
             bw.newLine();
+            // Write incorrectly answered questions
             for (int i = 0; i < questionCount; i++) {
                 if (!isCorrect[i]) {
                     bw.write("Question " + (i + 1) + " incorrect: " + questions[i].getQuestionText());
